@@ -9,6 +9,8 @@ public interface IRoomService {
 
     Room getById(int id);
 
+    int addUser(int userId, int roomId);
+
     int create(RoomDto roomDto);
 
     int update(int id, RoomDto roomDto);

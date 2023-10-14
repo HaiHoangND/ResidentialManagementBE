@@ -4,6 +4,8 @@ import com.resident.residentialmanagement.entity.Complaint;
 import com.resident.residentialmanagement.entity.Notification;
 import com.resident.residentialmanagement.entity.Role;
 import com.resident.residentialmanagement.entity.Room;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.*;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class UserDto {
     private String phone;
     private boolean status;
     private String gender;
+    @Enumerated(EnumType.STRING)
     private Role role;
     private List<Notification> notifications;
     private int gateId;

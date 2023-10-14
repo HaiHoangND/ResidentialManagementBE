@@ -41,6 +41,15 @@ public class RoomController {
         }
     }
 
+    @PostMapping("/addUser")
+    GeneralResponse<?> addUser(@RequestParam int userId, @RequestParam int roomId) {
+        try {
+            return GeneralResponse.ok("success", "Successfully created", roomService.addUser(userId,roomId));
+        } catch (Exception e) {
+            return GeneralResponse.failed("failed", e.getMessage());
+        }
+    }
+
     @PutMapping("{id}")
     GeneralResponse<?> updateRoom(@PathVariable int id, @RequestBody RoomDto roomDto) {
         try {

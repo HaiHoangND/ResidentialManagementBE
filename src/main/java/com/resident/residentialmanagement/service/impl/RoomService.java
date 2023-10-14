@@ -2,9 +2,11 @@ package com.resident.residentialmanagement.service.impl;
 
 import com.resident.residentialmanagement.dto.RoomDto;
 import com.resident.residentialmanagement.entity.Room;
+import com.resident.residentialmanagement.entity.User;
 import com.resident.residentialmanagement.exception.BusinessException;
 import com.resident.residentialmanagement.mapper.RoomMapper;
 import com.resident.residentialmanagement.repository.RoomRepository;
+import com.resident.residentialmanagement.repository.UserRepository;
 import com.resident.residentialmanagement.service.IRoomService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Validator;
@@ -18,11 +20,14 @@ import java.util.List;
 @Service
 public class RoomService implements IRoomService {
     private final RoomRepository roomRepository;
+
+    private final UserRepository userRepository;
     private final Validator validator;
     private final RoomMapper mapper;
 
-    public RoomService(RoomRepository roomRepository, Validator validator, RoomMapper mapper) {
+    public RoomService(RoomRepository roomRepository, UserRepository userRepository, Validator validator, RoomMapper mapper) {
         this.roomRepository = roomRepository;
+        this.userRepository = userRepository;
         this.validator = validator;
         this.mapper = mapper;
     }
@@ -31,6 +36,17 @@ public class RoomService implements IRoomService {
     public Page<Room> getAll(int pageNumber, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return roomRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public int addUser(int userId, int roomId){
+        User user = userRepository.findById(userId).orElseThrow(() -> new BusinessException("404", "error", "User not found")); // Lấy thông tin User từ cơ sở dữ liệu
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new BusinessException("404", "error", "Room not found")); // Lấy thông tin Room từ cơ sở dữ liệu
+        room.getUsers().add(user);
+        user.getRooms().add(room);
+        roomRepository.save(room);
+        userRepository.save(user);
+        return roomId;
     }
 
     @Override

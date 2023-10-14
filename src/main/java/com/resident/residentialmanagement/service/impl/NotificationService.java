@@ -5,6 +5,7 @@ import com.resident.residentialmanagement.entity.Notification;
 import com.resident.residentialmanagement.exception.BusinessException;
 import com.resident.residentialmanagement.mapper.NotificationMapper;
 import com.resident.residentialmanagement.repository.NotificationRepository;
+import com.resident.residentialmanagement.repository.UserRepository;
 import com.resident.residentialmanagement.service.INotificationService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Validator;
@@ -18,10 +19,11 @@ import java.util.List;
 @Service
 public class NotificationService implements INotificationService {
     private final NotificationRepository notificationRepository;
+
     private final Validator validator;
     private final NotificationMapper mapper;
 
-    public NotificationService(NotificationRepository notificationRepository, Validator validator, NotificationMapper mapper) {
+    public NotificationService(NotificationRepository notificationRepository, UserRepository userRepository, Validator validator, NotificationMapper mapper) {
         this.notificationRepository = notificationRepository;
         this.validator = validator;
         this.mapper = mapper;
