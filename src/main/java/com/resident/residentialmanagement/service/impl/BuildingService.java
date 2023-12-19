@@ -2,9 +2,11 @@ package com.resident.residentialmanagement.service.impl;
 
 import com.resident.residentialmanagement.dto.BuildingDto;
 import com.resident.residentialmanagement.entity.Building;
+import com.resident.residentialmanagement.entity.Room;
 import com.resident.residentialmanagement.exception.BusinessException;
 import com.resident.residentialmanagement.mapper.BuildingMapper;
 import com.resident.residentialmanagement.repository.BuildingRepository;
+import com.resident.residentialmanagement.repository.RoomRepository;
 import com.resident.residentialmanagement.service.IBuildingService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Validator;
@@ -18,11 +20,14 @@ import java.util.List;
 @Service
 public class BuildingService implements IBuildingService {
     private final BuildingRepository buildingRepository;
+
+    private final RoomRepository roomRepository;
     private final Validator validator;
     private final BuildingMapper mapper;
 
-    public BuildingService(BuildingRepository buildingRepository, Validator validator, BuildingMapper mapper) {
+    public BuildingService(BuildingRepository buildingRepository, RoomRepository roomRepository, Validator validator, BuildingMapper mapper) {
         this.buildingRepository = buildingRepository;
+        this.roomRepository = roomRepository;
         this.validator = validator;
         this.mapper = mapper;
     }
@@ -31,6 +36,13 @@ public class BuildingService implements IBuildingService {
     public Page<Building> getAll(int pageNumber, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return buildingRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public Page<Room> getAllRooms(int pageNumber, int pageSize, int buildingId) {
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+        Page<Room> roomPage = roomRepository.findByBuildingId(pageRequest, buildingId);
+        return roomPage;
     }
 
     @Override

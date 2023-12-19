@@ -1,5 +1,6 @@
 package com.resident.residentialmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,9 +20,11 @@ public class Gate implements Serializable {
     @Enumerated(EnumType.STRING)
     private GateCategory category;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "gate")
     private List<EntryExit> entryExits;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "gate")
     private List<User> users;
 }

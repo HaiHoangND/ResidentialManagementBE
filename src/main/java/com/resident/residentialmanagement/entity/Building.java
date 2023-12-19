@@ -1,5 +1,6 @@
 package com.resident.residentialmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class Building implements Serializable {
     private String name;
     private String position;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "building")
     private List<Room> rooms;
 }

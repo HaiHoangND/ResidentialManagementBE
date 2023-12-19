@@ -1,6 +1,5 @@
 package com.resident.residentialmanagement.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -24,7 +23,6 @@ public class EntryExit implements Serializable {
     @CreationTimestamp
     private LocalDateTime date;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "gate_id")
     private Gate gate;

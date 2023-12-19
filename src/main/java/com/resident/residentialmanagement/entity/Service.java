@@ -20,6 +20,7 @@ public class Service implements Serializable {
     @Column(name = "provider_name")
     private String providerName;
 
+    @Column(length = 65535,columnDefinition="Text")
     private String description;
 
     @Column(name = "phone_contact")

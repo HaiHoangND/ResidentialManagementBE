@@ -19,6 +19,7 @@ public class Notification implements Serializable {
     private int id;
 
     private String title;
+    @Column(length = 65535,columnDefinition="Text")
     private String content;
 
     @CreationTimestamp

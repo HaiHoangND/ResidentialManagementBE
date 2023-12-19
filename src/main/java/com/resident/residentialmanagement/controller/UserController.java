@@ -1,6 +1,7 @@
 package com.resident.residentialmanagement.controller;
 
 import com.resident.residentialmanagement.dto.UserDto;
+import com.resident.residentialmanagement.entity.Role;
 import com.resident.residentialmanagement.response.GeneralResponse;
 import com.resident.residentialmanagement.service.impl.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,9 @@ public class UserController {
     }
 
     @GetMapping
-    GeneralResponse<?> getAllUsers(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    GeneralResponse<?> getAllUsers(@RequestParam int pageNumber, @RequestParam int pageSize, @RequestParam Role role) {
         try {
-            return GeneralResponse.ok("success", "Successfully fetched", userService.getAll(pageNumber, pageSize));
+            return GeneralResponse.ok("success", "Successfully fetched", userService.getAll(pageNumber, pageSize, role));
         } catch (Exception e) {
             return GeneralResponse.failed("failed", e.getMessage());
         }

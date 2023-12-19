@@ -24,9 +24,9 @@ public class BuildingController {
     }
 
     @GetMapping("{id}")
-    GeneralResponse<?> getBuildingById(@PathVariable int id) {
+    GeneralResponse<?> getRoomsByBuildingId(@RequestParam int pageNumber, @RequestParam int pageSize,@PathVariable int id) {
         try {
-            return GeneralResponse.ok("success", "Successfully fetched", buildingService.getById(id));
+            return GeneralResponse.ok("success", "Successfully fetched", buildingService.getAllRooms(pageNumber, pageSize, id));
         } catch (Exception e) {
             return GeneralResponse.failed("failed", e.getMessage());
         }

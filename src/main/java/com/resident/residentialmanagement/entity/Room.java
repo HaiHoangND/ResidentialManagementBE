@@ -17,11 +17,12 @@ public class Room {
     private int number;
     private String image;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "building_id")
     private Building building;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "rooms")
     private List<User> users;
+
 }

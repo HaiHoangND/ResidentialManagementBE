@@ -1,6 +1,7 @@
 package com.resident.residentialmanagement.service.impl;
 
 import com.resident.residentialmanagement.dto.UserDto;
+import com.resident.residentialmanagement.entity.Role;
 import com.resident.residentialmanagement.entity.User;
 import com.resident.residentialmanagement.exception.BusinessException;
 import com.resident.residentialmanagement.mapper.UserMapper;
@@ -28,9 +29,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Page<User> getAll(int pageNumber, int pageSize) {
+    public Page<User> getAll(int pageNumber, int pageSize, Role role) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
-        return userRepository.findAll(pageRequest);
+        return userRepository.findAll(pageRequest, role);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.resident.residentialmanagement.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,12 +20,13 @@ public class Complaint implements Serializable {
 
     @CreationTimestamp
     private LocalDateTime date;
+
+    @Column(length = 65535,columnDefinition="Text")
     private String description;
 
     @Column(name = "processed_status")
     private boolean processedStatus;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
