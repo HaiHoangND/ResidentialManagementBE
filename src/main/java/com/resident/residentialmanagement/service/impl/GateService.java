@@ -1,6 +1,7 @@
 package com.resident.residentialmanagement.service.impl;
 
 import com.resident.residentialmanagement.dto.GateDto;
+import com.resident.residentialmanagement.entity.Building;
 import com.resident.residentialmanagement.entity.Gate;
 import com.resident.residentialmanagement.exception.BusinessException;
 import com.resident.residentialmanagement.mapper.GateMapper;
@@ -31,6 +32,11 @@ public class GateService implements IGateService {
     public Page<Gate> getAll(int pageNumber, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return gateRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public List<Gate> getAllNoPage() {
+        return gateRepository.findAllNoPage();
     }
 
     @Override

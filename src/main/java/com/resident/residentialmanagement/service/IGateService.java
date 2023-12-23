@@ -4,6 +4,8 @@ import com.resident.residentialmanagement.dto.GateDto;
 import com.resident.residentialmanagement.entity.Gate;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface IGateService {
     Page<Gate> getAll(int pageNumber, int pageSize);
 
@@ -14,4 +16,6 @@ public interface IGateService {
     int update(int id, GateDto gateDto);
 
     Boolean delete(int id);
+
+    List<Gate> getAllNoPage();
 }

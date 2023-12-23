@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
@@ -63,11 +64,18 @@ public class UserService implements IUserService {
         if (!errors.isEmpty()) {
             throw new BusinessException("400", "error", errors.get(0));
         }
+        Optional<User> user1 = userRepository.findByPhone(userDto.getPhone());
+        if (user1.isPresent() && user1.orElseThrow().getId() != id) {
+            throw new BusinessException("404", "error", "Số điện thoại đã tồn tại");
+        }
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("404", "error", "User not found"));
-        mapper.updateEntity(user, userDto);
-        userRepository.save(user);
-        return user.getId();
+        UserDto userDto1 = mapper.toDto(user);
+        User user2 = mapper.createEntity(userDto1);
+        user2.setPassword(user.getPassword());
+        mapper.updateEntity(user2, userDto);
+        userRepository.save(user2);
+        return user2.getId();
     }
 
     @Override

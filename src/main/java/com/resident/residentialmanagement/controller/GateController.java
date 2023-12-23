@@ -23,6 +23,15 @@ public class GateController {
         }
     }
 
+    @GetMapping("/all")
+    GeneralResponse<?> getAllGatesNoPage() {
+        try {
+            return GeneralResponse.ok("success", "Successfully fetched", gateService.getAllNoPage());
+        }catch (Exception e) {
+            return GeneralResponse.failed("failed", e.getMessage());
+        }
+    }
+
     @GetMapping("{id}")
     GeneralResponse<?> getGateById(@PathVariable int id) {
         try {

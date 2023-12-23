@@ -5,6 +5,8 @@ import com.resident.residentialmanagement.entity.Building;
 import com.resident.residentialmanagement.entity.Room;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface IBuildingService {
     Page<Building> getAll(int pageNumber, int pageSize);
 
@@ -17,4 +19,6 @@ public interface IBuildingService {
     int update(int id, BuildingDto buildingDto);
 
     Boolean delete(int id);
+
+    List<Building> getAllNoPage();
 }

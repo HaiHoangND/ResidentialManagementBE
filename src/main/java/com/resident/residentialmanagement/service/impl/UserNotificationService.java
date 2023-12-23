@@ -64,9 +64,11 @@ public class UserNotificationService implements IUserNotificationService {
         }
         UserNotification userNotification = userNotificationRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("404", "error", "UserNotification not found"));
-        mapper.updateEntity(userNotification, userNotificationDto);
-        userNotificationRepository.save(userNotification);
-        return userNotification.getId();
+        UserNotificationDto userNotificationDto1 = mapper.toDto(userNotification);
+        UserNotification userNotification1 = mapper.createEntity(userNotificationDto1);
+        mapper.updateEntity(userNotification1, userNotificationDto);
+        userNotificationRepository.save(userNotification1);
+        return userNotification1.getId();
     }
 
     @Override

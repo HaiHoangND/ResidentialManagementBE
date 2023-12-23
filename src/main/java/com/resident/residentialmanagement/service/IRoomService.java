@@ -16,4 +16,6 @@ public interface IRoomService {
     int update(int id, RoomDto roomDto);
 
     Boolean delete(int id);
+
+    int findRoomByRoomNumberAndBuildingId(int roomNumber, int buildingId);
 }

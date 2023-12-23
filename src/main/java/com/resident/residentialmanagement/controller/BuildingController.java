@@ -23,6 +23,15 @@ public class BuildingController {
         }
     }
 
+    @GetMapping("/all")
+    GeneralResponse<?> getAllBuildingsNoPage() {
+        try {
+            return GeneralResponse.ok("success", "Successfully fetched", buildingService.getAllNoPage());
+        }catch (Exception e) {
+            return GeneralResponse.failed("failed", e.getMessage());
+        }
+    }
+
     @GetMapping("{id}")
     GeneralResponse<?> getRoomsByBuildingId(@RequestParam int pageNumber, @RequestParam int pageSize,@PathVariable int id) {
         try {

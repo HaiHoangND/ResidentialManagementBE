@@ -65,9 +65,11 @@ public class ComplaintService implements IComplaintService {
         }
         Complaint complaint = complaintRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("404", "error", "Complaint not found"));
-        mapper.updateEntity(complaint, complaintDto);
-        complaintRepository.save(complaint);
-        return complaint.getId();
+        ComplaintDto complaintDto1 = mapper.toDto(complaint);
+        Complaint complaint1 = mapper.createEntity(complaintDto1);
+        mapper.updateEntity(complaint1, complaintDto);
+        complaintRepository.save(complaint1);
+        return complaint1.getId();
     }
 
     @Override

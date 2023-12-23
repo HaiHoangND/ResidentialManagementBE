@@ -23,6 +23,15 @@ public class RoomController {
         }
     }
 
+    @GetMapping("/findByRoomNumber")
+    GeneralResponse<?> findRoomByRoomNumberAndBuildingId(@RequestParam int roomNumber,@RequestParam int buildingId) {
+        try {
+            return GeneralResponse.ok("success", "Successfully fetched", roomService.findRoomByRoomNumberAndBuildingId(roomNumber, buildingId));
+        } catch (Exception e) {
+            return GeneralResponse.failed("failed", e.getMessage());
+        }
+    }
+
     @GetMapping("{id}")
     GeneralResponse<?> getRoomById(@PathVariable int id) {
         try {

@@ -50,6 +50,12 @@ public class RoomService implements IRoomService {
     }
 
     @Override
+    public int findRoomByRoomNumberAndBuildingId(int roomNumber, int buildingId){
+        int roomId = roomRepository.findByRoomNumberAndBuildingId(roomNumber, buildingId);
+        return roomId;
+    }
+
+    @Override
     public Room getById(int id) {
         return roomRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("404", "error", "Room not found"));
@@ -80,9 +86,11 @@ public class RoomService implements IRoomService {
         }
         Room room = roomRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("404", "error", "Room not found"));
-        mapper.updateEntity(room, roomDto);
-        roomRepository.save(room);
-        return room.getId();
+        RoomDto roomDto1 = mapper.toDto(room);
+        Room room1 = mapper.createEntity(roomDto1);
+        mapper.updateEntity(room1, roomDto);
+        roomRepository.save(room1);
+        return room1.getId();
     }
 
     @Override

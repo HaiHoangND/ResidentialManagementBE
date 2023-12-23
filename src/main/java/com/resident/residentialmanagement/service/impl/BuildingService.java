@@ -39,6 +39,11 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
+    public List<Building> getAllNoPage() {
+        return buildingRepository.findAll();
+    }
+
+    @Override
     public Page<Room> getAllRooms(int pageNumber, int pageSize, int buildingId) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         Page<Room> roomPage = roomRepository.findByBuildingId(pageRequest, buildingId);
@@ -75,7 +80,7 @@ public class BuildingService implements IBuildingService {
             throw new BusinessException("400", "error", errors.get(0));
         }
         Building building = buildingRepository.findById(id)
-                .orElseThrow(()-> new BusinessException("404", "error", "Building not found"));
+                .orElseThrow(() -> new BusinessException("404", "error", "Building not found"));
         mapper.updateEntity(building, buildingDto);
         buildingRepository.save(building);
         return building.getId();
@@ -85,7 +90,7 @@ public class BuildingService implements IBuildingService {
     @Transactional(rollbackOn = Exception.class)
     public Boolean delete(int id) {
         buildingRepository.findById(id)
-                .orElseThrow(()-> new BusinessException("404", "error", "Building not found"));
+                .orElseThrow(() -> new BusinessException("404", "error", "Building not found"));
         buildingRepository.deleteById(id);
         return true;
     }
